@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  ms-mailer-service-be:
+    container_name: ms-mailer-service-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    volumes:
+      - ./:/appdata/www
+    env_file:
+      - .env
+    depends_on:
+      - ms-mailer-service-db
+    networks:
+      - cmicro-ms-network
+
+  ms-mailer-service-db:
+    container_name: ms-mailer-service-db
+    build:
+      context: ./docker/database
+    ports:
+      - 10200:3306
+    environment:
+      MYSQL_DATABASE: mailer_database
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ms-mailer-service-db-data:/var/lib/mysql
+    networks:
+      - cmicro-ms-network
+    command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
+
+volumes:
+  ms-mailer-service-db-data:
+
+networks:
+  cmicro-ms-network:
+    external: true

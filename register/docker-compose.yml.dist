@@ -1,0 +1,34 @@
+version: '3.5'
+
+services:
+  ms-register-service-web:
+    container_name: ms-register-service-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 1000:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - ms-register-service-be
+    networks:
+      - cmicro-ms-network
+
+  ms-register-service-be:
+    container_name: ms-register-service-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    volumes:
+      - ./:/appdata/www
+    env_file:
+      - .env
+    networks:
+      - cmicro-ms-network
+
+networks:
+  cmicro-ms-network:
+    external: true

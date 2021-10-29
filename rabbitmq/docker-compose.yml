@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  ms-rabbitmq-service:
+    container_name: ms-rabbitmq-service
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - cmicro-ms-network
+
+networks:
+  cmicro-ms-network:
+    external: true
