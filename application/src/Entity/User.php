@@ -10,18 +10,22 @@ class User
 {
     private string $id;
     private string $name;
+    private ?string $surname;
     private string $email;
     private ?string $password;
     private ?string $code;
+    private ?string $avatar;
     private \DateTime $createdOn;
 
     public function __construct(string $name, string $email, string $code)
     {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
+        $this->surname = null;
         $this->email = $email;
         $this->password = null;
         $this->code = $code;
+        $this->avatar = null;
         $this->createdOn = new \DateTime();
     }
 
@@ -33,6 +37,11 @@ class User
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getSurname(): string
+    {
+        return $this->surname;
     }
 
     public function getEmail(): string

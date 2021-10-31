@@ -4,9 +4,11 @@
         <id name="id" type="string" column-definition="CHAR(36) NOT NULL"/>
 
         <field name="name" length="20" />
+        <field name="surname" length="30" nullable="true" />
         <field name="email" length="100" />
         <field name="password" length="100" nullable="true" />
         <field name="code" length="100" nullable="true" />
+        <field name="avatar" length="255" nullable="true" />
         <field name="createdOn" type="datetime" column-definition="DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP" />
 
         <unique-constraints>
